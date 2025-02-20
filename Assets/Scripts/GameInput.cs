@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,13 +8,20 @@ public class GameInput : MonoBehaviour
 
     private PlayerInputAction playerInputActions;
 
+    public event EventHandler OnPlayerAttack;
+
     private void Awake()
     {
         Instance = this;
         playerInputActions = new PlayerInputAction();
         playerInputActions.Enable();
-    }
 
+        playerInputActions.Combat.Attack.started += PlayerAttack_started;
+    }
+    private void PlayerAttack_started(InputAction.CallbackContext obj)
+    {
+        OnPlayerAttack?.Invoke(this, EventArgs.Empty); // if (OnPlayerAttack != null) но короче
+    }
     public Vector2 GetMovementVector()
     {
         Vector2 inputVector = playerInputActions.Player.Move.ReadValue<Vector2>();
