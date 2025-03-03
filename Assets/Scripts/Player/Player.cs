@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
 
     public event EventHandler OnPlayerDeath;
+    public event EventHandler OnPlayerTakeHit;
 
     [SerializeField] private float _movingSpeed = 5f;
     [SerializeField] private int _maxHealth = 10;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D _rb;
     private KnockBack _knockBack;
+    [SerializeField] private HPBar _hpBar;
 
     private float _minMovingSpeed = 0.1f;
     private bool _isRunning = false;
@@ -59,13 +61,21 @@ public class Player : MonoBehaviour
         if (_canTakeDamage && _isAlive)
         {
             _canTakeDamage = false;
+            OnPlayerTakeHit?.Invoke(this, EventArgs.Empty);
             _currentHealth = Mathf.Max(0, _currentHealth -= damage); // Конструкция чтобы хп не могло уйти в минус
             //Debug.Log(_currentHealth);
+            _hpBar.SetHPBarValue(_currentHealth);
             _knockBack.GetKnockBack(damageSource);
 
             StartCoroutine(DamageRecoveryRuotine());
         }
         DeteckDeath();
+    }
+    public void AddHealth(int heal)
+    {
+        _currentHealth = Mathf.Min(_maxHealth, _currentHealth += heal);
+        Debug.Log(_currentHealth);
+        _hpBar.SetHPBarValue(_currentHealth);
     }
     private void DeteckDeath()
     {

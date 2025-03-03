@@ -99,7 +99,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.3303199, y: 1.5676198}
+  m_Offset: {x: 0.33031988, y: 1.3271717}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -109,7 +109,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.4142992, y: 3.2170615}
+  m_Size: {x: 1.4142992, y: 2.7361653}
   m_EdgeRadius: 0
 --- !u!195 &8143885352383914503
 NavMeshAgent:
@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemySO: {fileID: 11400000, guid: 3651ab784e7ef294797448697a23a5bc, type: 2}
+  _score: {fileID: 0}
 --- !u!1 &5631501349391901863
 GameObject:
   m_ObjectHideFlags: 0

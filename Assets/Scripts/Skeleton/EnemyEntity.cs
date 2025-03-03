@@ -14,6 +14,7 @@ public class EnemyEntity : MonoBehaviour
 
     //[SerializeField] private int _maxHealth = 20;
     private int _currentHealth;
+    private int _enemyScore;
 
     private PolygonCollider2D _polygonCollider2D;
     private BoxCollider2D _boxCollider2D;
@@ -28,6 +29,7 @@ public class EnemyEntity : MonoBehaviour
 
     private void Start()
     {
+        _enemyScore = _enemySO.enemyScore;
         _currentHealth = _enemySO.enemyHealth;
     }
 
@@ -38,8 +40,6 @@ public class EnemyEntity : MonoBehaviour
             player.TakeDamage(transform, _enemySO.enemyDamageAmount);
         }
     }
-
-
     public void PolygonColliderTurnOff()
     {
         _polygonCollider2D.enabled = false;
@@ -65,8 +65,12 @@ public class EnemyEntity : MonoBehaviour
             _enemyAI.SetDeathState();
 
             OnDeath?.Invoke(this, EventArgs.Empty);
+
+            if (Score.Instance != null)
+            {
+                Score.Instance.ScoreAdd(_enemyScore);
+                Score.Instance.UpdateScoreText();
+            }            
         }
     }
-
-
 }

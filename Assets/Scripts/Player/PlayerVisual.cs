@@ -10,6 +10,7 @@ public class PlayerVisual : MonoBehaviour
 
     private const string IS_RUNNING = "IsRunning";
     private const string IS_DIE = "IsDie";
+    private const string TAKE_HIT = "TakeHit";
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -18,6 +19,12 @@ public class PlayerVisual : MonoBehaviour
     private void Start()
     {
         Player.Instance.OnPlayerDeath += Player_OnPlayerDeath;
+        Player.Instance.OnPlayerTakeHit += Player_OnPlayerTakeHit;
+    }
+
+    private void Player_OnPlayerTakeHit(object sender, System.EventArgs e)
+    {
+        _animator.SetTrigger(TAKE_HIT);
     }
 
     private void Player_OnPlayerDeath(object sender, System.EventArgs e)
